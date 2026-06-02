@@ -1,0 +1,19 @@
+# OpenTSP RTL verification: tiny 2x2 systolic-style tile
+# Run from repo root with: make -C tests_rtl -f Makefile.systolic_tile_2x2
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+# tests_rtl is one level below the repo root.
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/systolic_tile_2x2.sv
+
+TOPLEVEL := systolic_tile_2x2
+MODULE := test_systolic_tile_2x2
+
+# Keep generated simulator files inside tests_rtl/sim_build.
+SIM_BUILD ?= sim_build
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
