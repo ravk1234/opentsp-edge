@@ -1,0 +1,22 @@
+# OpenTSP RTL/Python contract check for the 2x2 systolic tile.
+# Run from repo root with: make -C tests_rtl -f Makefile.systolic_tile_contract
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+# tests_rtl is one level below the repo root.
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/systolic_tile_2x2.sv
+
+TOPLEVEL := systolic_tile_2x2
+MODULE := test_systolic_tile_contract
+
+# Let cocotb import opentsp.rtl_reference from the repo root.
+export PYTHONPATH := $(REPO_ROOT):$(PYTHONPATH)
+
+# Keep generated simulator files inside tests_rtl/sim_build.
+SIM_BUILD ?= sim_build
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
