@@ -1,0 +1,16 @@
+# OpenTSP RTL verification: instruction-memory + controller FSM
+# Run from repo root with: make -C tests_rtl -f Makefile.instruction_controller
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/instruction_controller.sv
+
+TOPLEVEL := instruction_controller
+MODULE := test_instruction_controller
+
+SIM_BUILD ?= sim_build
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
