@@ -1,0 +1,19 @@
+# OpenTSP RTL verification: instruction-controller-driven 2x2 tile engine
+# Run from repo root with: make -C tests_rtl -f Makefile.tile_engine_2x2
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := \
+	$(REPO_ROOT)/rtl/instruction_controller.sv \
+	$(REPO_ROOT)/rtl/systolic_tile_2x2.sv \
+	$(REPO_ROOT)/rtl/tile_engine_2x2.sv
+
+TOPLEVEL := tile_engine_2x2
+MODULE := test_tile_engine_2x2
+SIM_BUILD ?= sim_build
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
