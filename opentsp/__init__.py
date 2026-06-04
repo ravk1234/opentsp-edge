@@ -8,6 +8,7 @@ from .tiled_matmul import TiledMatmulConfig, int8_tiled_matmul
 from .attention_schedule import AttentionScheduleConfig, AttentionScheduleEvent, schedule_attention_decode
 from .timeline import TimelineEvent, TimelineResult, build_unified_timeline
 from .accelerator_runtime import Int8RuntimeConfig, Int8RuntimeResult, run_schedule_int8_tiled
+from .rtl_schedule_vectors import ScheduleVectorGroup, ScheduleVectorExtractionResult, collect_schedule_vectors_from_program
 
 __all__ = [
     "AcceleratorConfig",
@@ -27,4 +28,7 @@ __all__ = [
     "Int8RuntimeConfig",
     "Int8RuntimeResult",
     "run_schedule_int8_tiled",
+    "collect_schedule_vectors_from_program",
+    "ScheduleVectorExtractionResult",
+    "ScheduleVectorGroup",
 ]

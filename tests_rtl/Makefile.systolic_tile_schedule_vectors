@@ -1,0 +1,18 @@
+TOPLEVEL_LANG ?= verilog
+SIM ?= verilator
+
+REPO_ROOT := $(abspath ..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/systolic_tile_2x2.sv
+TOPLEVEL := systolic_tile_2x2
+MODULE := test_systolic_tile_schedule_vectors
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
+
+.PHONY: clean
+clean::
+	rm -f -r sim_build
+	rm -f dump.vcd
+	rm -f dump.fst
+	rm -f results.xml
