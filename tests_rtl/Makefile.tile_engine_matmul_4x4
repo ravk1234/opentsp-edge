@@ -1,0 +1,18 @@
+# OpenTSP RTL verification: run a full 4x4 INT8 matmul through tile_engine_mem_2x2
+# Run from repo root with: make -C tests_rtl -f Makefile.tile_engine_matmul_4x4
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/instruction_controller.sv \
+                   $(REPO_ROOT)/rtl/systolic_tile_2x2.sv \
+                   $(REPO_ROOT)/rtl/tile_engine_mem_2x2.sv
+
+TOPLEVEL := tile_engine_mem_2x2
+MODULE := test_tile_engine_matmul_4x4
+
+SIM_BUILD ?= sim_build
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
