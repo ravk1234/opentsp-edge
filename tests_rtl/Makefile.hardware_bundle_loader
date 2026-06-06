@@ -1,0 +1,18 @@
+# OpenTSP RTL verification: load exported hardware bundle files into tile_engine_mem_2x2
+# Run from repo root with: make -C tests_rtl -f Makefile.hardware_bundle_loader
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/instruction_controller.sv \
+                   $(REPO_ROOT)/rtl/systolic_tile_2x2.sv \
+                   $(REPO_ROOT)/rtl/tile_engine_mem_2x2.sv
+
+TOPLEVEL := tile_engine_mem_2x2
+MODULE := test_hardware_bundle_loader
+
+SIM_BUILD ?= sim_build
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
