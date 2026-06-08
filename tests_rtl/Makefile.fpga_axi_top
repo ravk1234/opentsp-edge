@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: Apache-2.0
+# cocotb/Verilator test for the FPGA-facing AXI top simulation wrapper.
+
+TOPLEVEL_LANG ?= verilog
+SIM ?= verilator
+
+TOPLEVEL := opentsp_axi_top_sim
+MODULE := test_fpga_axi_top
+
+REPO_ROOT := $(abspath $(CURDIR)/..)
+
+VERILOG_SOURCES := \
+	$(REPO_ROOT)/rtl/instruction_controller.sv \
+	$(REPO_ROOT)/rtl/systolic_tile_2x2.sv \
+	$(REPO_ROOT)/rtl/tile_engine_mem_2x2.sv \
+	$(REPO_ROOT)/rtl/host_tile_engine_2x2.sv \
+	$(REPO_ROOT)/rtl/axi_lite_host_regs.sv \
+	$(REPO_ROOT)/rtl/axi_lite_tile_engine_2x2.sv \
+	$(REPO_ROOT)/fpga/generic_axi/opentsp_axi_top_sim.sv
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
