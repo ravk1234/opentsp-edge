@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: Apache-2.0
+TOPLEVEL_LANG ?= verilog
+SIM ?= verilator
+
+PWD := $(shell pwd)
+REPO_ROOT := $(abspath $(PWD)/..)
+
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/axi_lite_host_regs.sv
+TOPLEVEL := axi_lite_host_regs
+MODULE := test_axi_lite_host_regs
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
