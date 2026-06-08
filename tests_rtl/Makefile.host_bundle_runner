@@ -1,0 +1,19 @@
+# OpenTSP RTL verification: exported bundle loaded through host register interface
+# Run from repo root with: make -C tests_rtl -f Makefile.host_bundle_runner
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+
+REPO_ROOT := $(abspath $(CURDIR)/..)
+VERILOG_SOURCES := $(REPO_ROOT)/rtl/instruction_controller.sv \
+                   $(REPO_ROOT)/rtl/systolic_tile_2x2.sv \
+                   $(REPO_ROOT)/rtl/tile_engine_mem_2x2.sv \
+                   $(REPO_ROOT)/rtl/host_tile_engine_2x2.sv
+
+TOPLEVEL := host_tile_engine_2x2
+MODULE := test_host_bundle_runner
+
+SIM_BUILD ?= sim_build
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
