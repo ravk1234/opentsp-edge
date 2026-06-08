@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: Apache-2.0
+# Verilator/cocotb test for the AXI-lite-controlled 2x2 tile engine.
+
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+TOPLEVEL := axi_lite_tile_engine_2x2
+MODULE := test_axi_lite_tile_engine
+
+PWD := $(shell pwd)
+REPO_ROOT := $(abspath $(PWD)/..)
+
+VERILOG_SOURCES := \
+	$(REPO_ROOT)/rtl/instruction_controller.sv \
+	$(REPO_ROOT)/rtl/systolic_tile_2x2.sv \
+	$(REPO_ROOT)/rtl/tile_engine_mem_2x2.sv \
+	$(REPO_ROOT)/rtl/axi_lite_host_regs.sv \
+	$(REPO_ROOT)/rtl/axi_lite_tile_engine_2x2.sv
+
+EXTRA_ARGS += --trace
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
